@@ -1,0 +1,20 @@
+vars:
+processes:    
+  nolex-install-pkg:
+    command: .\install-pkg.bat
+    ready_log_line: "found 0 vulnerabilities"
+    
+  nolex-core:
+    command: npm run dev
+    ready_log_line: "###NOLEX READY###"
+    depends_on:
+      nolex-install-pkg:
+        condition: process_log_ready
+  
+  # nolex-gui:
+  #   command: npm install && npm run dev
+  #   working_dir: "./nolex-frontend"
+  #   depends_on:
+  #     nolex-core:
+  #       condition: process_log_ready
+
