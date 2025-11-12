@@ -2,13 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import { closeDatabase, createInitialSchema, dbErrorHandler, initialData, initializeDatabase, knexMiddleware } from './Middlewares/db.js';
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-
-
 app.use(knexMiddleware);
 
 app.get('/info', (req, res) => {
@@ -25,17 +23,15 @@ const startServer = async () => {
         await createInitialSchema();
         await initialData();
 
-        const PORT = process.env.PORT || 3000;
         const server = app.listen(PORT, () => {
             console.log(`🚀 Server started on port ${PORT}`);
         });
 
-        
         const shutdown = async (signal) => {
-            console.log(`\n${signal} ricevuto, chiusura server...`);
+            console.log(`\n${signal} received, closing server...`);
             await closeDatabase();
             server.close(() => {
-                console.log('Server chiuso');
+                console.log('Server closed');
                 process.exit(0);
             });
         };
@@ -44,7 +40,7 @@ const startServer = async () => {
         process.on('SIGINT', () => shutdown('SIGINT'));
 
     } catch (error) {
-        console.error('Errore avvio:', error);
+        console.error('Startup error:', error);
         process.exit(1);
     }
 };

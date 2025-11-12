@@ -1,41 +1,5 @@
 import knex from 'knex';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import fs from 'node:fs';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const dbPath = process.env.DB_PATH || path.join(__dirname, '../db/database.sqlite');
-const migrationsPath = path.join(__dirname, '../db/migrations');
-const seedsPath = path.join(__dirname, '../db/seeds');
-
-if (!fs.existsSync(path.dirname(dbPath))) {
-    fs.mkdirSync(path.dirname(dbPath), { recursive: true });
-}
-
-if (!fs.existsSync(migrationsPath)) {
-    fs.mkdirSync(migrationsPath, { recursive: true });
-}
-
-if (!fs.existsSync(seedsPath)) {
-    fs.mkdirSync(seedsPath, { recursive: true });
-}
-
-const knexConfig = {
-    client: 'better-sqlite3',
-    connection: {
-        filename: dbPath
-    },
-    useNullAsDefault: true,
-    migrations: {
-        tableName: 'knex_migrations',
-        directory: migrationsPath
-    },
-    seeds: {
-        directory: seedsPath
-    }
-};
+import {knexConfig, dbPath } from '../config.js';
 
 let db = null;
 
@@ -72,7 +36,7 @@ export const initializeDatabase = async () => {
         }
         return db;
     } catch (error) {
-        console.error('✗ Errore initialize database:', error.message);
+        console.error('✗ Error initializing database:', error.message);
         throw error;
     }
 };
@@ -81,7 +45,6 @@ export const createInitialSchema = async () => {
     db = getKnexInstance();
 
     try {
-
         const hasExamsTable = await db.schema.hasTable('exams');
 
         if (!hasExamsTable) {
@@ -126,8 +89,6 @@ export const createInitialSchema = async () => {
                 table.integer('exam_id').unsigned().notNullable();
                 table.integer('clinic_id').unsigned().notNullable();
                 table.timestamps(true, true);
-                //table.foreign('exam_id').references('exams.id').onDelete('CASCADE');
-                //table.foreign('clinic_id').references('clinics.id').onDelete('CASCADE');
             });
             console.log('✓ Table rel_exam_clinic created');
         }
@@ -234,7 +195,7 @@ export const initialData = async () => {
         }
 
     } catch (error) {
-        console.error('✗ Errore seed dati:', error.message);
+        console.error('✗ Error seeding data:', error.message);
         throw error;
     }
 };
@@ -247,18 +208,18 @@ export const closeDatabase = async () => {
     }
 };
 
-// Middleware per gestione errori database
+
 export const dbErrorHandler = (err, req, res, next) => {
     // SQLite constraint errors
     if (err.code === 'SQLITE_CONSTRAINT') {
         if (err.message.includes('UNIQUE')) {
             return res.status(409).json({
-                error: 'Duplicato: la risorsa esiste già'
+                error: 'Duplicate: the resource already exists'
             });
         }
         if (err.message.includes('FOREIGN KEY')) {
             return res.status(400).json({
-                error: 'Vincolo violato: riferimento non valido'
+                error: 'Constraint violated: invalid reference'
             });
         }
     }
@@ -270,5 +231,5 @@ export const dbErrorHandler = (err, req, res, next) => {
     });
 };
 
-// Getter per l'istanza db
+
 export const getDb = () => db;
