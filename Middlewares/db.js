@@ -186,11 +186,21 @@ export const initialData = async () => {
         if (relationCount.count === 0) {
             await db('rel_exam_clinic').insert([
                 { exam_id: 1, clinic_id: 1 },
+                { exam_id: 1, clinic_id: 2 },
+                { exam_id: 1, clinic_id: 3 },
+                { exam_id: 2, clinic_id: 2 },
+                { exam_id: 2, clinic_id: 3 },
                 { exam_id: 2, clinic_id: 1 },
                 { exam_id: 3, clinic_id: 2 },
+                { exam_id: 3, clinic_id: 3 },
                 { exam_id: 4, clinic_id: 2 },
+                { exam_id: 4, clinic_id: 3 },
                 { exam_id: 5, clinic_id: 3 },
+                { exam_id: 5, clinic_id: 1 },
                 { exam_id: 6, clinic_id: 3 },
+                { exam_id: 6, clinic_id: 1 },
+                { exam_id: 6, clinic_id: 2 },
+                { exam_id: 6, clinic_id: 5 }
             ]);
         }
 
