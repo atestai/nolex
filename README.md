@@ -1,5 +1,6 @@
-# nolex
-
+# Nolex
+## Get start 
+## Test
 Siano dati un elenco di esami (es. "RX mano Dx", "RMN cranio", "Eco Addome"), un elenco di parti del corpo (es. Testa, Arti superiori,
 Addome,Torace) e un elenco di ambulatori (stanze) (es. Radiologia, Tac1, Tac2, Risonanza, EcografiaPrivitera, EcografiaMassimino, EcografiaDoppler).
 
@@ -43,7 +44,7 @@ Se stringhe, i valori andranno delimitati da ".
 Le linee inizianti con '#' sono commenti.
 
 Frammento di esempio (le stringhe qui usate sono solo un esempio):
-
+```
 [StampaServer]
 StampaServerEnabled = 1
 UpdateInterval = 3
@@ -60,8 +61,7 @@ MaxStorageDaysCheckInterval = 10
 DCMColPrintProcessServerAdditionalOptions = ""
 #DCMBNPrintProcessServerAdditionalOptions = "-v -d"
 DCMBNPrintProcessServerAdditionalOptions = ""
-
-
+```
 Ogni sezione nel file .ini corrisponderà, nel programma, ad una classe statica avente per nome la stringa "Predefiniti_" seguita dal nome della sezione.
 Queste classe statiche, contenenti solo proprietà, conterranno i valori di default necessari per le varie sezioni o funzioni del programma.
 Il codice nel programma referenzierà quindi direttamente queste proprietà per i valori iniziali del suo funzionamento.
