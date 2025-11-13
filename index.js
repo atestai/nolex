@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import { closeDatabase, createInitialSchema, dbErrorHandler, initialData, initializeDatabase, knexMiddleware } from './Middlewares/db.js';
+import { authMiddleware } from './Middlewares/auth.js';
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -14,6 +16,7 @@ app.get('/info', (req, res) => {
 });
 
 //Router
+app.use('/api', authMiddleware, (await import('./router.js')).default);
 
 app.use(dbErrorHandler);
 

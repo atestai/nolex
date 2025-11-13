@@ -188,9 +188,9 @@ export const initialData = async () => {
                 { exam_id: 1, clinic_id: 1 },
                 { exam_id: 1, clinic_id: 2 },
                 { exam_id: 1, clinic_id: 3 },
+                { exam_id: 2, clinic_id: 1 },
                 { exam_id: 2, clinic_id: 2 },
                 { exam_id: 2, clinic_id: 3 },
-                { exam_id: 2, clinic_id: 1 },
                 { exam_id: 3, clinic_id: 2 },
                 { exam_id: 3, clinic_id: 3 },
                 { exam_id: 4, clinic_id: 2 },
@@ -236,10 +236,9 @@ export const dbErrorHandler = (err, req, res, next) => {
 
     console.error('Database error:', err);
     res.status(500).json({
-        error: 'Errore del database',
+        error: 'Database error',
         details: process.env.NODE_ENV === 'development' ? err.message : undefined
     });
 };
-
 
 export const getDb = () => db;
