@@ -1,5 +1,73 @@
 # Nolex
-## Get start 
+
+## Setup Progetto
+Questa guida descrive i passaggi necessari per avviare il progetto.
+
+### Prerequisiti
+
+- Git installato sul sistema
+- Accesso al repository del progetto
+
+### Istruzioni di Installazione
+
+#### 1. Clonare il Repository
+
+```bash
+git clone https://github.com/atestai/nolex.git
+cd nolex
+```
+
+#### 2. Installare Process Compose
+
+##### Su Linux/macOS (usando curl):
+
+```bash
+curl -L https://github.com/F1bonacc1/process-compose/releases/latest/download/process-compose_linux_amd64.tar.gz | tar xz
+sudo mv process-compose /usr/local/bin/
+```
+
+##### Su macOS (usando Homebrew):
+
+```bash
+brew install process-compose
+```
+
+##### Su Linux (usando wget):
+
+```bash
+wget https://github.com/F1bonacc1/process-compose/releases/latest/download/process-compose_linux_amd64.tar.gz
+tar -xzf process-compose_linux_amd64.tar.gz
+sudo mv process-compose /usr/local/bin/
+```
+
+##### Su Windows (usando Scoop):
+
+```powershell
+scoop install process-compose
+```
+
+#### 3. Avviare Process Compose
+
+Una volta installato process-compose, avvia il progetto con:
+
+```bash
+process-compose
+```
+
+Oppure, se hai un file di configurazione specifico:
+
+```bash
+process-compose -f process-compose.yml
+```
+
+### Verifica Installazione
+
+Per verificare che process-compose sia installato correttamente:
+
+```bash
+process-compose --version
+```
+
 ## Test
 Siano dati un elenco di esami (es. "RX mano Dx", "RMN cranio", "Eco Addome"), un elenco di parti del corpo (es. Testa, Arti superiori,
 Addome,Torace) e un elenco di ambulatori (stanze) (es. Radiologia, Tac1, Tac2, Risonanza, EcografiaPrivitera, EcografiaMassimino, EcografiaDoppler).
