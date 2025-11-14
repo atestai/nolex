@@ -47,7 +47,8 @@ export default class Exams extends Models{
             .join('clinics', 'rel_exam_clinic.clinic_id', 'clinics.id')
             .where('clinics.id', clinicId)
             .andWhere('body_parts.id', bodyPartId)
-            .select('exams.id', 'exams.name', 'exams.min_cod', 'exams.internal_code');
+            .select('exams.id', 'exams.name', 'exams.min_cod', 'exams.internal_code').distinct();
+            
         if (limit) {
             query.limit(limit);
         }

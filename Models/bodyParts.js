@@ -6,7 +6,7 @@ export default class BodyParts extends Models {
         super(db, 'body_parts');
     }
 
-    async getBodyPartByExam(id, options = {}) {
+    async getBodyPartByClinic(id, options = {}) {
         // SELECT tbp.* 
         // FROM "body_parts" AS tbp
         // JOIN exams te ON  tbp.id = te.body_parts_id
@@ -21,7 +21,8 @@ export default class BodyParts extends Models {
             .join('clinics', 'rel_exam_clinic.clinic_id', 'clinics.id')
             .where('clinics.id', id)
             .select('body_parts.id', 'body_parts.name')
-
+            .distinct();
+            
         if (limit) {
             query.limit(limit);
         }   

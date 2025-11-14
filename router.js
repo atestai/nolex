@@ -43,7 +43,7 @@ router.get('/clinics/:id/bodyParts', async (req, res) => {
     }
     try {
         const bodyPartsModel = new BodyParts(req.db);
-        const bodyParts = await bodyPartsModel.getBodyPartByExam(id, req.query);
+        const bodyParts = await bodyPartsModel.getBodyPartByClinic(id, req.query);
         return res.json({ bodyParts }); 
     } catch (error) {
         console.error(error);
@@ -89,7 +89,7 @@ router.get('/bodyPartsByClinic', async (req, res) => {
     }
     try {
         const bodyPartsModel = new BodyParts(req.db);
-        const bodyParts = await bodyPartsModel.getBodyPartByExam(clinicId, { limit, offset, orderBy, order });
+        const bodyParts = await bodyPartsModel.getBodyPartByClinic(clinicId, { limit, offset, orderBy, order });
         return res.json({ bodyParts }); 
     } catch (error) {
         console.error(error);
