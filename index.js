@@ -27,14 +27,15 @@ const startServer = async () => {
         await initialData();
 
         const server = app.listen(PORT, () => {
-            console.log(`🚀 Server started on port ${PORT}`);
+            console.info(`🚀 Server started on port ${PORT}`);
+            console.info('###NOLEX READY###');
         });
 
         const shutdown = async (signal) => {
-            console.log(`\n${signal} received, closing server...`);
+            console.info(`\n${signal} received, closing server...`);
             await closeDatabase();
             server.close(() => {
-                console.log('Server closed');
+                console.info('Server closed');
                 process.exit(0);
             });
         };
