@@ -1,0 +1,10 @@
+{
+  "ignore": [
+    "nolex-gui/**",
+    "dist/**",
+    "*.test.js",
+    "*.spec.js"
+  ],
+  "watch": ["src/**"],
+  "ext": "js,json"
+}
