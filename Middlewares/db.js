@@ -179,6 +179,72 @@ export const initialData = async () => {
                     name: 'Risonanza Magnetica Colonna Vertebrale',
                     body_parts_id: 6,
                 },
+                {
+                    min_cod: 'EXAM007',
+                    internal_code: 'INT007',
+                    name: 'TAC Magnetica Pelvi',
+                    body_parts_id: 5
+                },
+                {
+                    min_cod: 'EXAM008',
+                    internal_code: 'INT008',
+                    name: 'Ecografia Addome',
+                    body_parts_id: 4
+                },
+                {
+                    min_cod: 'EXAM009',
+                    internal_code: 'INT009',
+                    name: 'Ecografia Pelvi',
+                    body_parts_id: 5
+                },
+                {
+                    min_cod: 'EXAM010',
+                    internal_code: 'INT010',
+                    name: 'Radiografia Torace',
+                    body_parts_id: 3
+                },
+                {
+                    min_cod: 'EXAM011',
+                    internal_code: 'INT011',
+                    name: 'Radiografia Colonna Vertebrale',
+                    body_parts_id: 6
+                },
+                {
+                    min_cod: 'EXAM012',
+                    internal_code: 'INT012',
+                    name: 'RX Arto Superiore',
+                    body_parts_id: 6
+                },
+                {
+                    min_cod: 'EXAM013',
+                    internal_code: 'INT013',
+                    name: 'RM Spalla',
+                    body_parts_id: 6
+                },
+                {
+                    min_cod: 'EXAM014',
+                    internal_code: 'INT014',
+                    name: 'TAC Torace',
+                    body_parts_id: 3
+                },
+                {
+                    min_cod: 'EXAM015',
+                    internal_code: 'INT015',
+                    name: 'Ecografia Collo',
+                    body_parts_id: 2
+                },
+                {
+                    min_cod: 'EXAM016',
+                    internal_code: 'INT016',
+                    name: 'Densitometria Ossea',
+                    body_parts_id: 7
+                },
+                {
+                    min_cod: 'EXAM017',
+                    internal_code: 'INT017',
+                    name: 'Ecografia Testa',
+                    body_parts_id: 1
+                }
             ]);
         }
 
@@ -188,9 +254,9 @@ export const initialData = async () => {
                 { exam_id: 1, clinic_id: 1 },
                 { exam_id: 1, clinic_id: 2 },
                 { exam_id: 1, clinic_id: 3 },
+                { exam_id: 2, clinic_id: 1 },
                 { exam_id: 2, clinic_id: 2 },
                 { exam_id: 2, clinic_id: 3 },
-                { exam_id: 2, clinic_id: 1 },
                 { exam_id: 3, clinic_id: 2 },
                 { exam_id: 3, clinic_id: 3 },
                 { exam_id: 4, clinic_id: 2 },
@@ -200,7 +266,19 @@ export const initialData = async () => {
                 { exam_id: 6, clinic_id: 3 },
                 { exam_id: 6, clinic_id: 1 },
                 { exam_id: 6, clinic_id: 2 },
-                { exam_id: 6, clinic_id: 5 }
+                { exam_id: 6, clinic_id: 5 },
+                { exam_id: 7, clinic_id: 1 },
+                { exam_id: 7, clinic_id: 4 },
+                { exam_id: 8, clinic_id: 4 },
+                { exam_id: 9, clinic_id: 4 },
+                { exam_id: 10, clinic_id: 5 },
+                { exam_id: 11, clinic_id: 5 },
+                { exam_id: 12, clinic_id: 5 },  
+                { exam_id: 13, clinic_id: 1 },
+                { exam_id: 14, clinic_id: 2 },
+                { exam_id: 15, clinic_id: 3 },
+                { exam_id: 16, clinic_id: 4 },
+                { exam_id: 17, clinic_id: 5 },
             ]);
         }
 
@@ -236,10 +314,9 @@ export const dbErrorHandler = (err, req, res, next) => {
 
     console.error('Database error:', err);
     res.status(500).json({
-        error: 'Errore del database',
+        error: 'Database error',
         details: process.env.NODE_ENV === 'development' ? err.message : undefined
     });
 };
-
 
 export const getDb = () => db;
