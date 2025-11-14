@@ -45,7 +45,6 @@ router.get('/clinics/:id/bodyParts', async (req, res) => {
         const bodyPartsModel = new BodyParts(req.db);
         const bodyParts = await bodyPartsModel.getBodyPartByExam(id, req.query);
         return res.json({ bodyParts }); 
-
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: 'Internal server error' });   
@@ -83,6 +82,21 @@ router.get('/bodyParts/:id', async (req, res) => {
     }
 });
 
+router.get('/bodyPartsByClinic', async (req, res) => {
+    const { clinicId, limit, offset, orderBy, order } = req.query;  
+    if (!clinicId) {
+        return res.status(400).json({ error: 'clinicId is required' });
+    }
+    try {
+        const bodyPartsModel = new BodyParts(req.db);
+        const bodyParts = await bodyPartsModel.getBodyPartByExam(clinicId, { limit, offset, orderBy, order });
+        return res.json({ bodyParts }); 
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Exams routes
 router.get('/exams', async (req, res) => {
     const { limit, offset, orderBy, order } = req.query;
@@ -90,6 +104,24 @@ router.get('/exams', async (req, res) => {
         const examsModel = new Exams(req.db, 'exams');
         const exams = await examsModel.findAll({ limit, offset, orderBy, order });
         return res.json({ exams });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.get('/exams/:id', async (req, res) => {
+    const {id = undefined} = req.params;
+    if (!id ) {
+        return res.status(400).json({ error: 'Invalid exam ID' });
+    }
+    try {
+        const examsModel = new Exams(req.db, 'exams');
+        const exam = await examsModel.findById(req.params.id);      
+        if (!exam) {
+            return res.status(404).json({ error: 'Exam not found' });
+        }   
+        return res.json({ exam });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: 'Internal server error' });
@@ -105,7 +137,6 @@ router.get('/examsByBodyPartAndClinic', async (req, res) => {
         const examsModel = new Exams(req.db); 
         const exams = await examsModel.getExamByBodyPartAndClinic(bodyPartId, clinicId, { limit, offset, orderBy, order });
         return res.json({ exams });
-
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: 'Internal server error' });
