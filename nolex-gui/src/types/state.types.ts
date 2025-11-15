@@ -1,10 +1,9 @@
 import type { ReactNode } from "react";
 import type { BodyPart, Clinic, Exame } from "./fetch.types";
 import type { SearchByType } from "../componets/SearchBar";
-
+import type { DataGridType } from "../componets/DataGrid";
 
 export interface SharedState {
-
     query: string;
     setQuery: (query: string) => void;
 
@@ -25,7 +24,8 @@ export interface SharedState {
     bodyExames: Exame[];
     setBodyExames: (exames: Exame[]) => void;
 
-
+    dataStore: DataGridType[];
+    setDataStore: (dataStore: DataGridType[] | ((prevData: DataGridType[]) => DataGridType[])) => void;
 }
 
 export interface SharedStateProviderProps {

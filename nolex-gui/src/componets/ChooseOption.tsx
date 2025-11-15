@@ -3,6 +3,15 @@ import { RadioGroup } from "./RadioGroup";
 import { RadioBox } from "./RadioBox";
 import { useSharedState } from "../hooks/useSharedState";
 import { getBodyParts, getClinics, getExamsByBodyPartAndClinic } from "../utilities/fetch";
+import type { DataGridType } from "./DataGrid";
+
+async function sha1(message: string): Promise<string> {
+    const msgBuffer = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest('SHA-1', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
+}
 
 export function ChooseOption() {
     const { 
@@ -19,7 +28,9 @@ export function ChooseOption() {
         bodyParts, 
         setBodyParts, 
         bodyExames, 
-        setBodyExames 
+        setBodyExames,
+        dataStore,
+        setDataStore
     } = useSharedState();
 
     if (clinics.length > 0 && !selectedClinic) {
@@ -74,11 +85,26 @@ export function ChooseOption() {
         setSelectedBodyPart(value);
     }
 
+    const onAddItem = async () => {
+        const exam = bodyExames.find(e => e.id == selectedExame);
+        const item : DataGridType = {
+            id: await sha1(`${selectedClinic}-${selectedBodyPart}-${selectedExame}`),
+            clinicName: clinics.find(c => c.id == selectedClinic)?.name || '',
+            bodyPartName: bodyParts.find(b => b.id == selectedBodyPart)?.name || '',
+            exameName: exam?.name || '',
+            min_cod: exam?.min_cod || '',
+            internal_code: exam?.internal_code || '',
+        }
+        if (dataStore.find(d => d.id === item.id)) {
+            return alert('This exame is already added.');
+        }
+
+        setDataStore(prevData => [...prevData, item]);
+        sessionStorage.setItem('dataStore', JSON.stringify([...dataStore, item]));
+    }   
+
     return (
         <>
-            {/* <div className="mb-6 text-lg font-semibold">
-                {selectedClinic} - {selectedBodyPart} - {selectedExame}
-            </div> */}
             <div className="flex flex-row space-x-4">
                 <div className='w-1/4  h-full p-5'>
                     <RadioGroup
@@ -122,7 +148,7 @@ export function ChooseOption() {
             <div className="mt-6 text-right">
                 <button
                     disabled={!selectedExame}
-                    onClick={() => { alert('Button clicked!') }}
+                    onClick={onAddItem}
                     className={`bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-200 ${!selectedExame ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                     Add new item
