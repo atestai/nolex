@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSharedState } from "../hooks/useSharedState";
 
 export const SearchBy = {
     NAME: 'name',
@@ -13,12 +14,28 @@ export function SearchBar() {
     const [query, setQuery] = useState('');
     const [searchBy, setSearchBy] = useState<SearchByType>(SearchBy.NAME);
 
+    const { clinics, setClinics, setSelectedClinic } = useSharedState();
+
     const placeholder = "Search...";
 
-    const onSearch = (query: string, searchBy: SearchByType) => {
+    const onSearch = async (query: string, searchBy: SearchByType) => {
+
+        if (query.trim() === '') {
+            return;
+        }
+        
         console.log(`Searching for "${query}" by "${searchBy}"`);
-        // Implement the actual search logic here
+        
+        await fetch ('http://localhost:3000/api/clinics')
+            .then(response => response.json())
+            .then(data => setClinics(data.clinics.slice(1, 2)));
     }
+
+    useEffect(() => {
+        if (clinics.length > 0 ) {
+            setSelectedClinic(clinics[0].id);
+        }
+    }, [clinics, setSelectedClinic]);
 
     return (
         <div>
