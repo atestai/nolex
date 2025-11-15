@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import type { SharedStateProviderProps } from "../types/state.types";
 import { SharedStateContext } from "../context/StoreContext";
 import type { BodyPart, Clinic, Exame } from "../types/fetch.types";
+import { SearchBy, type SearchByType } from "./SearchBar";
 
 export function SharedStateProvider({ children }: SharedStateProviderProps) {
    
@@ -13,8 +14,11 @@ export function SharedStateProvider({ children }: SharedStateProviderProps) {
     const [bodyParts, setBodyParts] = useState<BodyPart[]>([]);
     const [bodyExames, setBodyExames] = useState<Exame[]>([]);
 
-    const value = useMemo(() => ({ selectedClinic, setSelectedClinic, selectedBodyPart, setSelectedBodyPart, selectedExame, setSelectedExame, clinics, setClinics, bodyParts, setBodyParts, bodyExames, setBodyExames 
-    }), [selectedClinic, setSelectedClinic, selectedBodyPart, setSelectedBodyPart, selectedExame, setSelectedExame, clinics, setClinics, bodyParts, setBodyParts, bodyExames, setBodyExames]);
+    const [query, setQuery] = useState('');
+    const [searchBy, setSearchBy] = useState<SearchByType>(SearchBy.NAME);
+
+    const value = useMemo(() => ({ selectedClinic, setSelectedClinic, selectedBodyPart, setSelectedBodyPart, selectedExame, setSelectedExame, clinics, setClinics, bodyParts, setBodyParts, bodyExames, setBodyExames, query, setQuery, searchBy, setSearchBy 
+    }), [selectedClinic, setSelectedClinic, selectedBodyPart, setSelectedBodyPart, selectedExame, setSelectedExame, clinics, setClinics, bodyParts, setBodyParts, bodyExames, setBodyExames, query, setQuery, searchBy, setSearchBy]);
 
     return (
         <SharedStateContext.Provider value={value}>

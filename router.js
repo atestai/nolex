@@ -2,14 +2,20 @@ import express from 'express'
 import Model from './Models/model.js';
 import Exams from './Models/exams.js';
 import BodyParts from './Models/bodyParts.js';
+import Clinics from './Models/clinics.js';
 
 const router = express.Router()
 
 // Clinics routes
 router.get('/clinics', async (req, res) => {
-    const { limit, offset, orderBy, order } = req.query;
+    const { query, searchBy, limit, offset, orderBy, order } = req.query;
     try {
-        const clinicsModel = new Model(req.db, 'clinics');
+        const clinicsModel = new Clinics(req.db);
+        if (query && searchBy) {
+            const clinics = await clinicsModel.searchClinics(query, searchBy, { limit, offset, orderBy, order });
+            return res.json({ clinics });
+        }
+
         const clinics = await clinicsModel.findAll({ limit, offset, orderBy, order });
         return res.json({ clinics });    
     } catch (error) {
@@ -38,12 +44,15 @@ router.get('/clinics/:id', async (req, res) => {
 
 router.get('/clinics/:id/bodyParts', async (req, res) => {
     const {id = undefined} = req.params;
+    const { query, searchBy, limit, offset, orderBy, order } = req.query;
+
     if (!id ) {
         return res.status(400).json({ error: 'Invalid clinic ID' });
     }
     try {
         const bodyPartsModel = new BodyParts(req.db);
-        const bodyParts = await bodyPartsModel.getBodyPartByClinic(id, req.query);
+
+        const bodyParts = await bodyPartsModel.getBodyPartByClinic(id, { string: query, searchBy, limit, offset, orderBy, order });
         return res.json({ bodyParts }); 
     } catch (error) {
         console.error(error);
@@ -129,13 +138,13 @@ router.get('/exams/:id', async (req, res) => {
 });
 
 router.get('/examsByBodyPartAndClinic', async (req, res) => {
-    const { bodyPartId, clinicId, limit, offset, orderBy, order } = req.query;
+    const { bodyPartId, clinicId, query, searchBy, limit, offset, orderBy, order } = req.query;
     if (!bodyPartId || !clinicId) {
         return res.status(400).json({ error: 'bodyPartId and clinicId are required' });
     }
     try {
         const examsModel = new Exams(req.db); 
-        const exams = await examsModel.getExamByBodyPartAndClinic(bodyPartId, clinicId, { limit, offset, orderBy, order });
+        const exams = await examsModel.getExamByBodyPartAndClinic(bodyPartId, clinicId, { string: query, searchBy, limit, offset, orderBy, order });
         return res.json({ exams });
     } catch (error) {
         console.error(error);

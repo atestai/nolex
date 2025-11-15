@@ -40,7 +40,7 @@ export default class Exams extends Models{
         // WHERE tc.id = 1
         // AND tbp.id = 2;
 
-        const { limit, offset, orderBy = 'exams.name', order = 'asc' } = options;   
+        const { string, searchBy, limit, offset, orderBy = 'exams.name', order = 'asc' } = options;   
         const query = this.db(this.tableName)
             .join('body_parts', 'body_parts.id', 'exams.body_parts_id')
             .join('rel_exam_clinic', 'exams.id', 'rel_exam_clinic.exam_id')
@@ -48,14 +48,22 @@ export default class Exams extends Models{
             .where('clinics.id', clinicId)
             .andWhere('body_parts.id', bodyPartId)
             .select('exams.id', 'exams.name', 'exams.min_cod', 'exams.internal_code').distinct();
-            
+        
+        if (string && searchBy) {
+            query.andWhere(`exams.${searchBy}`, 'like', `%${string}%`);
+        }
+
         if (limit) {
             query.limit(limit);
         }
         if (offset) {
             query.offset(offset);
         }
+        
         query.orderBy(orderBy, order);
+
+        console.log(query.toString());
+        
         return await query;
     }
 
