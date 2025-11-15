@@ -2,9 +2,12 @@ import { useEffect} from "react";
 import { RadioGroup } from "./RadioGroup";
 import { RadioBox } from "./RadioBox";
 import { useSharedState } from "../hooks/useSharedState";
+import { getBodyParts, getClinics, getExamsByBodyPartAndClinic } from "../utilities/fetch";
 
 export function ChooseOption() {
     const { 
+        query, 
+        searchBy,
         selectedClinic, 
         setSelectedClinic, 
         selectedBodyPart, 
@@ -25,23 +28,20 @@ export function ChooseOption() {
     
     useEffect(() => {
         async function fetchClinics() {
-            await fetch ('http://localhost:3000/api/clinics')
-            .then(response => response.json())
-            .then(data => setClinics(data.clinics));
+            const data = await getClinics();
+            setClinics(data.clinics);
         }
         fetchClinics();
     }, [setClinics]);
 
+
     useEffect(() => {
         async function fetchBodyParts() {
-
-            await fetch (` http://localhost:3000/api/clinics/${selectedClinic}/bodyParts`)
-            .then(response => response.json())
-            .then(data => setBodyParts(data.bodyParts));
-            
-            setSelectedBodyPart(undefined);
-            setBodyExames([]);
-            setSelectedExame(undefined);
+            if (!selectedClinic) {
+                return;    
+            }
+            const data = await getBodyParts(selectedClinic, query, searchBy);
+            setBodyParts(data.bodyParts);
         }
         
         fetchBodyParts();
@@ -53,14 +53,26 @@ export function ChooseOption() {
         }
         
         async function fetchBodyExames() {
-            await fetch (`http://localhost:3000/api/examsByBodyPartAndClinic?bodyPartId=${selectedBodyPart}&clinicId=${selectedClinic}`)
-            .then(response => response.json())
-            .then((data) => setBodyExames(data.exams));
-            setSelectedExame(undefined);
+            const data =  await getExamsByBodyPartAndClinic(selectedBodyPart, selectedClinic, query, searchBy);
+            setBodyExames(data.exams);
         }
 
         fetchBodyExames();
     }, [selectedClinic, selectedBodyPart, setBodyExames, setSelectedExame]);
+
+
+    const onClinicChange = (value: string) => {
+        setSelectedBodyPart(undefined);
+        setBodyExames([]);
+        setSelectedExame(undefined);
+        setSelectedClinic(value); 
+    }
+
+    const onBodyPartChange = (value: string) => {
+        setBodyExames([]);
+        setSelectedExame(undefined);
+        setSelectedBodyPart(value);
+    }
 
     return (
         <>
@@ -72,7 +84,7 @@ export function ChooseOption() {
                     <RadioGroup
                         name="clinic"
                         value={selectedClinic}
-                        onChange={setSelectedClinic}
+                        onChange={ onClinicChange }
                         label="Choose Your Clinic"
                         className="mb-8"
                     >
@@ -84,7 +96,7 @@ export function ChooseOption() {
                     <RadioGroup
                         name="bodyPart"
                         value={selectedBodyPart}
-                        onChange={setSelectedBodyPart}
+                        onChange={onBodyPartChange}
                         label="Choose Body Part"
                         className="mb-3"
                     >
@@ -113,7 +125,7 @@ export function ChooseOption() {
                     onClick={() => { alert('Button clicked!') }}
                     className={`bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-200 ${!selectedExame ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
-                    Add new exame
+                    Add new item
                 </button>
             </div>
         </>

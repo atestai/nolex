@@ -37,7 +37,131 @@
               ]
             },
             "description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-          }
+          },
+          "response": [
+            {
+              "name": "clinics",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/clinics?query=reset&searchBy=name",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "clinics"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "reset"
+                    },
+                    {
+                      "key": "searchBy",
+                      "value": "name"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "_postman_previewtype": "html",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "182"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"b6-2pE5OnTVJhxSPPuOIeLMcrNsgBU\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 15 Nov 2025 10:44:44 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "responseTime": "2025-11-15T10:44:50.002Z",
+              "body": "{\n    \"clinics\": [\n        {\n            \"id\": 1,\n            \"name\": \"Clinica Catania\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Clinica Messina\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Clinica Palermo\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"Clinica Agrigento\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Clinica Enna\"\n        }\n    ]\n}"
+            },
+            {
+              "name": "clinics",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/clinics",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "clinics"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "_postman_previewtype": "html",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "182"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"b6-2pE5OnTVJhxSPPuOIeLMcrNsgBU\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 15 Nov 2025 10:48:51 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "responseTime": "2025-11-15T10:48:52.175Z",
+              "body": "{\n    \"clinics\": [\n        {\n            \"id\": 1,\n            \"name\": \"Clinica Catania\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Clinica Messina\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Clinica Palermo\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"Clinica Agrigento\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Clinica Enna\"\n        }\n    ]\n}"
+            }
+          ]
         },
         {
           "name": "clinics/:id",
@@ -121,7 +245,149 @@
               ]
             },
             "description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-          }
+          },
+          "response": [
+            {
+              "name": "getBodyPartsByClinic",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/clinics/:id/bodyParts?query=Tac&searchBy=name",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "clinics",
+                    ":id",
+                    "bodyParts"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "Tac",
+                      "uuid": "51571151-2247-4fa0-a22c-051a59b9bfe6"
+                    },
+                    {
+                      "key": "searchBy",
+                      "value": "name",
+                      "uuid": "92b9ac86-924e-4e5e-b229-c998b484733f"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "_postman_previewtype": "html",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "120"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"78-Xn0qg1GoyaH9X6gx8KM+4A1daKU\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 15 Nov 2025 11:30:13 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "responseTime": "2025-11-15T11:30:41.909Z",
+              "body": "{\n    \"bodyParts\": [\n        {\n            \"id\": 6,\n            \"name\": \"Arti Superiori\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Collo\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Pelvi\"\n        },\n        {\n            \"id\": 1,\n            \"name\": \"Testa\"\n        }\n    ]\n}"
+            },
+            {
+              "name": "getBodyPartsByClinic",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/clinics/:id/bodyParts",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "clinics",
+                    ":id",
+                    "bodyParts"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "_postman_previewtype": "html",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "120"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"78-Xn0qg1GoyaH9X6gx8KM+4A1daKU\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 15 Nov 2025 11:37:13 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "responseTime": "2025-11-15T11:37:14.205Z",
+              "body": "{\n    \"bodyParts\": [\n        {\n            \"id\": 6,\n            \"name\": \"Arti Superiori\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Collo\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Pelvi\"\n        },\n        {\n            \"id\": 1,\n            \"name\": \"Testa\"\n        }\n    ]\n}"
+            }
+          ]
         }
       ]
     },
@@ -230,7 +496,154 @@
                 }
               ]
             }
-          }
+          },
+          "response": [
+            {
+              "name": "examsByBodyPartAndClinic",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/examsByBodyPartAndClinic?bodyPartId=5&clinicId=1&query=Tac&searchBy=name",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "examsByBodyPartAndClinic"
+                  ],
+                  "query": [
+                    {
+                      "key": "bodyPartId",
+                      "value": "5",
+                      "uuid": "9ae3202e-b939-4224-a83f-0d23f003cf33"
+                    },
+                    {
+                      "key": "clinicId",
+                      "value": "1",
+                      "uuid": "809aa14b-2553-4481-820e-5da2f1dc5069"
+                    },
+                    {
+                      "key": "query",
+                      "value": "Tac"
+                    },
+                    {
+                      "key": "searchBy",
+                      "value": "name",
+                      "uuid": "0369dca7-8507-4805-9d68-266614082647"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "_postman_previewtype": "html",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "94"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"5e-hrtEqPy9Ky+dl62NbTINqcur0/U\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 15 Nov 2025 11:36:47 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "responseTime": "2025-11-15T11:36:49.108Z",
+              "body": "{\n    \"exams\": [\n        {\n            \"id\": 7,\n            \"name\": \"TAC Magnetica Pelvi\",\n            \"min_cod\": \"EXAM007\",\n            \"internal_code\": \"INT007\"\n        }\n    ]\n}"
+            },
+            {
+              "name": "examsByBodyPartAndClinic",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/examsByBodyPartAndClinic?bodyPartId=5&clinicId=1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "examsByBodyPartAndClinic"
+                  ],
+                  "query": [
+                    {
+                      "key": "bodyPartId",
+                      "value": "5",
+                      "uuid": "9ae3202e-b939-4224-a83f-0d23f003cf33"
+                    },
+                    {
+                      "key": "clinicId",
+                      "value": "1",
+                      "uuid": "809aa14b-2553-4481-820e-5da2f1dc5069"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "_postman_previewtype": "html",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "183"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"b7-bJZC7HqQ0ZBDBbpqNghBXnYcMvg\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 15 Nov 2025 11:37:03 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "responseTime": "2025-11-15T11:37:04.339Z",
+              "body": "{\n    \"exams\": [\n        {\n            \"id\": 5,\n            \"name\": \"Risonanza Magnetica Pelvi\",\n            \"min_cod\": \"EXAM005\",\n            \"internal_code\": \"INT005\"\n        },\n        {\n            \"id\": 7,\n            \"name\": \"TAC Magnetica Pelvi\",\n            \"min_cod\": \"EXAM007\",\n            \"internal_code\": \"INT007\"\n        }\n    ]\n}"
+            }
+          ]
         }
       ]
     },

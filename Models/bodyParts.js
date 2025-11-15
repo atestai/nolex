@@ -14,7 +14,7 @@ export default class BodyParts extends Models {
         // JOIN clinics tc ON rec.clinic_id = tc.id
         // WHERE tc.id = 1
         
-        const { limit, offset, orderBy = 'body_parts.name', order = 'asc' } = options;   
+        const {string, searchBy, limit, offset, orderBy = 'body_parts.name', order = 'asc' } = options;   
         const query = this.db(this.tableName)
             .join('exams', 'body_parts.id', 'exams.body_parts_id')
             .join('rel_exam_clinic', 'exams.id', 'rel_exam_clinic.exam_id')
@@ -22,6 +22,10 @@ export default class BodyParts extends Models {
             .where('clinics.id', id)
             .select('body_parts.id', 'body_parts.name')
             .distinct();
+
+        if (string && searchBy) {
+            query.andWhere(`exams.${searchBy}`, 'like', `%${string}%`);
+        }
             
         if (limit) {
             query.limit(limit);
@@ -30,6 +34,7 @@ export default class BodyParts extends Models {
             query.offset(offset);
         }
         query.orderBy(orderBy, order);
+        
         return await query;
     }
 }

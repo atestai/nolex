@@ -1,7 +1,16 @@
 import type { ReactNode } from "react";
 import type { BodyPart, Clinic, Exame } from "./fetch.types";
+import type { SearchByType } from "../componets/SearchBar";
+
 
 export interface SharedState {
+
+    query: string;
+    setQuery: (query: string) => void;
+
+    searchBy: SearchByType;
+    setSearchBy: (searchBy: SearchByType) => void;
+
     selectedClinic: string | undefined;
     setSelectedClinic: (clinicId: string | undefined) => void;
     selectedBodyPart: string | undefined;
@@ -15,6 +24,8 @@ export interface SharedState {
     setBodyParts: (bodyParts: BodyPart[]) => void;
     bodyExames: Exame[];
     setBodyExames: (exames: Exame[]) => void;
+
+
 }
 
 export interface SharedStateProviderProps {
