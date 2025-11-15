@@ -19,13 +19,11 @@ export const RadioBox: React.FC<RadioBoxProps> = ({
   const isSelected = selectedValue == value;
   const id = `radio-${name}-${value}`;
 
-  console.log(selectedValue, typeof selectedValue, value ,typeof value, isSelected);
-  
   return (
     <label key={id}
       htmlFor={id}
       className={`
-        flex items-start gap-1 p-2 rounded-lg border-2 cursor-pointer
+        flex items-start gap-3 p-2 rounded-lg border-2 cursor-pointer
         transition-all duration-200
         ${isSelected
           ? 'border-blue-500 bg-blue-50'
