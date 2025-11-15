@@ -25,49 +25,8 @@ interface DataGridProps {
 
 
 export function DataGrid( { className }: DataGridProps) {
-
-    //const [data, setData] = useState<DataGridType[]>([]);   
-    
-    //     {
-    //         id: '1',
-    //         clinicName: 'Juan Pérez',
-    //         bodyPartName: 'Cardiología',
-    //         exameName: 'ECG',
-    //         min_cod: 'juan.perez@example.com',
-    //         internal_code: 'Administrador',
-    //     },
-    //     {
-    //         id: '2',
-    //         clinicName: 'Juan Pérez s',
-    //         bodyPartName: 'Cardiología s',
-    //         exameName: 'ECG s',
-    //         min_cod: 'juan.perez@example.com s',
-    //         internal_code: 'Administrador s',
-    //     },
-    //     {
-    //         id: '3',
-    //         clinicName: 'Juan Pérez s',
-    //         bodyPartName: 'Cardiología s',
-    //         exameName: 'ECG s',
-    //         min_cod: 'juan.perez@example.com s',
-    //         internal_code: 'Administrador s',
-    //     },
-    // ]);
-
-    // const addItem = (item: DataGridType) => {
-    //     setData(prevData => [...prevData, item]);
-    // }   
-    
     const { dataStore : data, setDataStore: setData } = useSharedState();
-
-    const {
-        isOpen,
-        isLoading,
-        options,
-        openDialog,
-        closeDialog,
-        handleConfirm,
-    } = useConfirmDialog();
+    const { isOpen, isLoading, options, openDialog, closeDialog, handleConfirm} = useConfirmDialog();
 
     const deleteRow = (e: React.MouseEvent, id: string) => {
         e.stopPropagation();
@@ -82,9 +41,6 @@ export function DataGrid( { className }: DataGridProps) {
                 setData(prevData => prevData.filter(row => row.id !== id));
             },
         });
-
-      
-        
     }   
 
     const moveUp = (e: React.MouseEvent, id: string) => {
@@ -114,15 +70,6 @@ export function DataGrid( { className }: DataGridProps) {
     }
 
     const columns : Column<DataGridType>[] =  [
-        // {
-        //     key: 'id' as keyof DataGridType,
-        //     header: 'ID',
-        //     render: (value: string) => (
-        //         <span className="inline-block w-[100px] truncate" title={String(value)}>
-        //             {String(value)}
-        //         </span>
-        //     ),
-        // },
         {
             key: 'clinicName' as keyof DataGridType,
             header: 'Clinic name',
