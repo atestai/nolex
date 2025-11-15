@@ -4,6 +4,8 @@ import { RadioBox } from "./RadioBox";
 import { useSharedState } from "../hooks/useSharedState";
 import { getBodyParts, getClinics, getExamsByBodyPartAndClinic } from "../utilities/fetch";
 import type { DataGridType } from "./DataGrid";
+import { useConfirmDialog } from "../hooks/useConfirmDialog";
+import ConfirmDialog from "./ConfirmDialog";
 
 async function sha1(message: string): Promise<string> {
     const msgBuffer = new TextEncoder().encode(message);
@@ -32,6 +34,9 @@ export function ChooseOption() {
         dataStore,
         setDataStore
     } = useSharedState();
+
+    const { isOpen, isLoading, options, openDialog, closeDialog, handleConfirm} = useConfirmDialog();
+    
 
     if (clinics.length > 0 && !selectedClinic) {
         setSelectedClinic(clinics[0].id);
@@ -96,15 +101,36 @@ export function ChooseOption() {
             internal_code: exam?.internal_code || '',
         }
         if (dataStore.find(d => d.id === item.id)) {
-            return alert('This exame is already added.');
+
+            return openDialog({
+                title: 'Item Already Added',
+                message: `This exame is already added.`,
+                confirmText: 'Ok',
+                type: 'info',
+                onConfirm: () => {
+                    closeDialog();
+                }
+            });
         }
 
         setDataStore(prevData => [...prevData, item]);
         sessionStorage.setItem('dataStore', JSON.stringify([...dataStore, item]));
     }   
 
-    return (
+    return (    
         <>
+            <ConfirmDialog
+                isOpen={isOpen}
+                onClose={closeDialog}
+                onConfirm={handleConfirm}
+                title={options.title}
+                message={options.message}
+                confirmText={options.confirmText}
+                cancelText={options.cancelText}
+                type={options.type}
+                confirmLoading={isLoading}
+            />
+
             <div className="flex flex-row space-x-4">
                 <div className='w-1/4  h-full p-5'>
                     <RadioGroup
