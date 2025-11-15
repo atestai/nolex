@@ -1,16 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { RadioGroup } from "./RadioGroup";
 import { RadioBox } from "./RadioBox";
-import type { BodyPart, Clinic, Exame } from "../types/fetch.types";
+import { useSharedState } from "../hooks/useSharedState";
 
 export function ChooseOption() {
-    const [selectedClinic, setSelectedClinic] = useState<string|undefined>(undefined);
-    const [selectedBodyPart, setSelectedBodyPart] = useState<string|undefined>(undefined);
-    const [selectedExame, setSelectedExame] = useState<string|undefined>(undefined);
-
-    const [clinics, setClinics] = useState<Clinic[]>([]);
-    const [bodyParts, setBodyParts] = useState<BodyPart[]>([]);
-    const [bodyExames, setBodyExames] = useState<Exame[]>([]);
+    const { 
+        selectedClinic, 
+        setSelectedClinic, 
+        selectedBodyPart, 
+        setSelectedBodyPart, 
+        selectedExame, 
+        setSelectedExame, 
+        clinics, 
+        setClinics, 
+        bodyParts, 
+        setBodyParts, 
+        bodyExames, 
+        setBodyExames 
+    } = useSharedState();
 
     if (clinics.length > 0 && !selectedClinic) {
         setSelectedClinic(clinics[0].id);
@@ -23,7 +30,7 @@ export function ChooseOption() {
             .then(data => setClinics(data.clinics));
         }
         fetchClinics();
-    }, []);
+    }, [setClinics]);
 
     useEffect(() => {
         async function fetchBodyParts() {
@@ -38,7 +45,7 @@ export function ChooseOption() {
         }
         
         fetchBodyParts();
-    }, [selectedClinic]);
+    }, [selectedClinic, setBodyParts, setSelectedBodyPart, setBodyExames, setSelectedExame]);
 
     useEffect(() => {
         if (!selectedBodyPart || !selectedClinic) {
@@ -53,7 +60,7 @@ export function ChooseOption() {
         }
 
         fetchBodyExames();
-    }, [selectedClinic,selectedBodyPart]);
+    }, [selectedClinic, selectedBodyPart, setBodyExames, setSelectedExame]);
 
     return (
         <>
