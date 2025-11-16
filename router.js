@@ -3,6 +3,7 @@ import Model from './Models/model.js';
 import Exams from './Models/exams.js';
 import BodyParts from './Models/bodyParts.js';
 import Clinics from './Models/clinics.js';
+import { Default_FrontendSearch } from './Configurations/Default_FrontendSearch.js';
 
 const router = express.Router()
 
@@ -152,4 +153,16 @@ router.get('/examsByBodyPartAndClinic', async (req, res) => {
     }
 });
 
+router.get('/frontendConfig', async (req, res) => {
+    try {
+        res.json({
+            query : Default_FrontendSearch.query,
+            searchBy : Default_FrontendSearch.searchBy
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+ 
 export default router;

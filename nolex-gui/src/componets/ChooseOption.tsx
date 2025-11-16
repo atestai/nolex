@@ -2,10 +2,11 @@ import { useEffect} from "react";
 import { RadioGroup } from "./RadioGroup";
 import { RadioBox } from "./RadioBox";
 import { useSharedState } from "../hooks/useSharedState";
-import { getBodyParts, getClinics, getExamsByBodyPartAndClinic } from "../utilities/fetch";
+import { getBodyParts, getClinics, getClinicsBySearch, getExamsByBodyPartAndClinic } from "../utilities/fetch";
 import type { DataGridType } from "./DataGrid";
 import { useConfirmDialog } from "../hooks/useConfirmDialog";
 import ConfirmDialog from "./ConfirmDialog";
+import { Add } from "./Icons";
 
 async function sha1(message: string): Promise<string> {
     const msgBuffer = new TextEncoder().encode(message);
@@ -17,8 +18,7 @@ async function sha1(message: string): Promise<string> {
 
 export function ChooseOption() {
     const { 
-        query, 
-        searchBy,
+        searchStatus,
         selectedClinic, 
         setSelectedClinic, 
         selectedBodyPart, 
@@ -37,18 +37,21 @@ export function ChooseOption() {
 
     const { isOpen, isLoading, options, openDialog, closeDialog, handleConfirm} = useConfirmDialog();
     
-
     if (clinics.length > 0 && !selectedClinic) {
         setSelectedClinic(clinics[0].id);
     }
     
     useEffect(() => {
         async function fetchClinics() {
-            const data = await getClinics();
-            setClinics(data.clinics);
+            if (searchStatus.query.trim() === '') {
+                const data = await getClinics();
+                return setClinics(data.clinics);
+            }
+            const data = await getClinicsBySearch(searchStatus.query, searchStatus.searchBy);
+            return setClinics(data.clinics); 
         }
         fetchClinics();
-    }, [setClinics]);
+    }, [setClinics, searchStatus]);
 
 
     useEffect(() => {
@@ -56,12 +59,12 @@ export function ChooseOption() {
             if (!selectedClinic) {
                 return;    
             }
-            const data = await getBodyParts(selectedClinic, query, searchBy);
+            const data = await getBodyParts(selectedClinic, searchStatus.query, searchStatus.searchBy);
             setBodyParts(data.bodyParts);
         }
         
         fetchBodyParts();
-    }, [selectedClinic, setBodyParts, setSelectedBodyPart, setBodyExames, setSelectedExame]);
+    }, [selectedClinic, searchStatus, setBodyParts, setSelectedBodyPart, setBodyExames, setSelectedExame]);
 
     useEffect(() => {
         if (!selectedBodyPart || !selectedClinic) {
@@ -69,12 +72,11 @@ export function ChooseOption() {
         }
         
         async function fetchBodyExames() {
-            const data =  await getExamsByBodyPartAndClinic(selectedBodyPart, selectedClinic, query, searchBy);
+            const data =  await getExamsByBodyPartAndClinic(selectedBodyPart, selectedClinic, searchStatus.query, searchStatus.searchBy);
             setBodyExames(data.exams);
         }
-
         fetchBodyExames();
-    }, [selectedClinic, selectedBodyPart, setBodyExames, setSelectedExame]);
+    }, [selectedClinic, selectedBodyPart, searchStatus,setBodyExames, setSelectedExame]);
 
 
     const onClinicChange = (value: string) => {
@@ -100,8 +102,8 @@ export function ChooseOption() {
             min_cod: exam?.min_cod || '',
             internal_code: exam?.internal_code || '',
         }
-        if (dataStore.find(d => d.id === item.id)) {
 
+        if (dataStore.find(d => d.id === item.id)) {
             return openDialog({
                 title: 'Item Already Added',
                 message: `This exame is already added.`,
@@ -175,9 +177,11 @@ export function ChooseOption() {
                 <button
                     disabled={!selectedExame}
                     onClick={onAddItem}
-                    className={`bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-200 ${!selectedExame ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`w-fit bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-200 ${!selectedExame ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
-                    Add new item
+                    <div className="flex items-center">
+                        <Add /> <span className="ml-2">Add new item</span>
+                    </div>
                 </button>
             </div>
         </>

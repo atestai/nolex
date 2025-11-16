@@ -3,12 +3,14 @@ import type { BodyPart, Clinic, Exame } from "./fetch.types";
 import type { SearchByType } from "../componets/SearchBar";
 import type { DataGridType } from "../componets/DataGrid";
 
-export interface SharedState {
+export interface SearchStatus {
     query: string;
-    setQuery: (query: string) => void;
-
     searchBy: SearchByType;
-    setSearchBy: (searchBy: SearchByType) => void;
+}
+
+export interface SharedState {
+    searchStatus: SearchStatus; 
+    setSearchStatus: (status: SearchStatus | ((prevStatus: SearchStatus) => SearchStatus)) => void;
 
     selectedClinic: string | undefined;
     setSelectedClinic: (clinicId: string | undefined) => void;
