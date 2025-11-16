@@ -134,16 +134,38 @@ async function parseIniDirectory(directoryPath) {
     return results;
 }
 
-export const initializeConfigurator =  async () => {
+async function loadAndConfigureClass(moduleName, configValues) {
+    const className = `Default_${moduleName}`;
+    const modulePath = `../Configurations/${className}.js`;
 
+    const module = await import(modulePath);
+    const Classe = module[className];
+
+    for (const [key, value] of Object.entries(configValues)) {
+        const numericValue = Number(value);
+        Classe[key] = isNaN(numericValue) ? value : numericValue;
+        console.log(`✓ Set ${moduleName}.${key} = ${Classe[key]} (${typeof Classe[key]})`);
+    }   
+}
+
+export const initializeConfigurator =  async () => {
     try {
         const results = await parseIniDirectory(join(__dirname, '../appConfigs'));
         if (results.length === 0) {
             console.warn('No .ini configuration files found in the directory.');
         } else {
             console.info(`✓ Parsed ${results.length} configuration file(s).`);
+            for (const result of results) {
+                if (result.hasErrors) {
+                    console.warn(`Configuration file ${result.file} has errors and may not be fully loaded.`);
+                } else {
+                    console.info(`Configuration file ${result.file} loaded successfully.`);
+                    for (const section in result.data) {
+                        await loadAndConfigureClass(section, result.data[section]);
+                    }                    
+                }
+            }
         }
-        
     } catch (error) {
         console.error('Error during initialization:', error);
     }
