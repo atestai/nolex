@@ -1,3 +1,4 @@
+import { Default_Database } from "../Configurations/Default_Database.js";
 import Models from "./model.js";
 
 export default class Exams extends Models{
@@ -7,7 +8,7 @@ export default class Exams extends Models{
     }   
     
     async findAll( options = {} ) {
-        const { limit, offset, orderBy = 'body_part_name', order = 'asc' } = options;   
+        const { limit = Default_Database.limitRecords, offset, orderBy = 'body_part_name', order = 'asc' } = options;   
         const query = this.db(this.tableName)
             .select('exams.min_cod', 'exams.internal_code', 'body_parts.name as body_part_name')
             .join('body_parts', 'exams.body_parts_id', 'body_parts.id');
@@ -61,10 +62,6 @@ export default class Exams extends Models{
         }
         
         query.orderBy(orderBy, order);
-
-        console.log(query.toString());
-        
         return await query;
     }
-
 }

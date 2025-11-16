@@ -1,3 +1,4 @@
+import { Default_Database } from "../Configurations/Default_Database.js";
 import Models from "./model.js";
 
 export default class Clinics extends Models {
@@ -6,7 +7,7 @@ export default class Clinics extends Models {
     }
 
     async searchClinics(value, searchBy, options = {}) {
-        const { limit, offset, orderBy = 'clinics.name', order = 'asc' } = options;   
+        const { limit = Default_Database.limitRecords, offset, orderBy = 'clinics.name', order = 'asc' } = options;   
         const query = this.db('body_parts')
             .join('exams', 'body_parts.id', 'exams.body_parts_id')
             .join('rel_exam_clinic', 'exams.id', 'rel_exam_clinic.exam_id')
