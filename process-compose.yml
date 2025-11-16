@@ -9,7 +9,7 @@ processes:
     #     condition: process_log_ready
   
   nolex-gui:
-    command: npm install && npm run dev
+    command: npm install && npm run build && npm run preview
     working_dir: "./nolex-gui"
     depends_on:
       nolex-core:
