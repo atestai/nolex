@@ -11,6 +11,8 @@ export type SearchByType = typeof SearchBy[keyof typeof SearchBy];
 
 export function SearchBar() {
 
+    //const []
+
     const { 
         query, setQuery, 
         searchBy, setSearchBy, 

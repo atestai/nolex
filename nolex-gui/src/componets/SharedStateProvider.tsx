@@ -15,8 +15,10 @@ export function SharedStateProvider({ children }: SharedStateProviderProps) {
     const [bodyParts, setBodyParts] = useState<BodyPart[]>([]);
     const [bodyExames, setBodyExames] = useState<Exame[]>([]);
 
-    const [query, setQuery] = useState('');
-    const [searchBy, setSearchBy] = useState<SearchByType>(SearchBy.NAME);
+    
+    //const [query, setQuery] = useState('');
+    // const [query, setQuery] = useState('');
+    // const [searchBy, setSearchBy] = useState<SearchByType>(SearchBy.NAME);
 
     const [dataStore, setDataStore] = useState<DataGridType[]>(() => {
         const storedData = sessionStorage.getItem('dataStore');
