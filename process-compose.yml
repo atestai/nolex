@@ -4,9 +4,6 @@ processes:
   nolex-core:
     command: npm install && npm run start
     ready_log_line: "###NOLEX READY###"
-    # depends_on:
-    #   nolex-install-pkg:
-    #     condition: process_log_ready
   
   nolex-gui:
     command: npm install && npm run build && npm run preview
