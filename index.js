@@ -7,7 +7,6 @@ import { Default_HttpServer } from './Configurations/Default_HttpServer.js';
 import { Default_General } from './Configurations/Default_General.js';
 
 await initializeConfigurator();
-
 console.info(`Starting ${Default_General.appName} v${Default_General.version}...`);
 
 const HOST = Default_HttpServer.host || 'localhost';
@@ -32,7 +31,6 @@ app.use('/api', authMiddleware, (await import('./router.js')).default);
 app.use(dbErrorHandler);
 
 const startServer = async () => {
-
     try {
         await initializeDatabase();
         await createInitialSchema();
