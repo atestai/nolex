@@ -72,3 +72,16 @@ export async function getGeneralInfo() {
         console.error("Errore durante il fetch:", error);
     }
 }
+
+export async function getFrontendConfig() {
+    try {
+        const response = await fetch(`${baseUrl}frontendConfig`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Errore durante il fetch:", error);
+    }
+}

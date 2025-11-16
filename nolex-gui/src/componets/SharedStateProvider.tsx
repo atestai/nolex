@@ -1,9 +1,10 @@
-import { use, useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { SharedStateProviderProps } from "../types/state.types";
 import { SharedStateContext } from "../context/StoreContext";
 import type { BodyPart, Clinic, Exame } from "../types/fetch.types";
-import { SearchBy, type SearchByType } from "./SearchBar";
+import type { SearchStatus } from "../types/state.types";
 import type { DataGridType } from "./DataGrid";
+import { SearchBy } from "./SearchBar";
 
 export function SharedStateProvider({ children }: SharedStateProviderProps) {
    
@@ -15,11 +16,8 @@ export function SharedStateProvider({ children }: SharedStateProviderProps) {
     const [bodyParts, setBodyParts] = useState<BodyPart[]>([]);
     const [bodyExames, setBodyExames] = useState<Exame[]>([]);
 
-    
-    //const [query, setQuery] = useState('');
-    // const [query, setQuery] = useState('');
-    // const [searchBy, setSearchBy] = useState<SearchByType>(SearchBy.NAME);
-
+    const [searchStatus, setSearchStatus] = useState<SearchStatus>({ query: '', searchBy: SearchBy.NAME });
+  
     const [dataStore, setDataStore] = useState<DataGridType[]>(() => {
         const storedData = sessionStorage.getItem('dataStore');
         if (storedData) {
@@ -28,8 +26,28 @@ export function SharedStateProvider({ children }: SharedStateProviderProps) {
         return [];
     });
 
-    const value = useMemo(() => ({ selectedClinic, setSelectedClinic, selectedBodyPart, setSelectedBodyPart, selectedExame, setSelectedExame, clinics, setClinics, bodyParts, setBodyParts, bodyExames, setBodyExames, query, setQuery, searchBy, setSearchBy, dataStore, setDataStore 
-    }), [selectedClinic, setSelectedClinic, selectedBodyPart, setSelectedBodyPart, selectedExame, setSelectedExame, clinics, setClinics, bodyParts, setBodyParts, bodyExames, setBodyExames, query, setQuery, searchBy, setSearchBy, dataStore, setDataStore    ]);
+    const value = useMemo(() => ({ 
+        selectedClinic, setSelectedClinic, 
+        selectedBodyPart, setSelectedBodyPart, 
+        selectedExame, setSelectedExame, 
+        
+        clinics, setClinics, 
+        bodyParts, setBodyParts, 
+        bodyExames, setBodyExames, 
+        
+        searchStatus, setSearchStatus, 
+        dataStore, setDataStore 
+
+    }), [
+        selectedClinic, setSelectedClinic, 
+        selectedBodyPart, setSelectedBodyPart, 
+        selectedExame, setSelectedExame, 
+        clinics, setClinics, 
+        bodyParts, setBodyParts, 
+        bodyExames, setBodyExames, 
+        searchStatus, setSearchStatus, 
+        dataStore, setDataStore    
+    ]);
 
     return (
         <SharedStateContext.Provider value={value}>

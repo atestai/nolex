@@ -2,6 +2,7 @@ import { type ReactNode } from 'react';
 import { useSharedState } from '../hooks/useSharedState';
 import { useConfirmDialog } from '../hooks/useConfirmDialog';
 import ConfirmDialog from './ConfirmDialog';
+import { Delete, Down, Up } from './Icons';
 
 export interface DataGridType {
     id: string;
@@ -23,7 +24,6 @@ interface DataGridProps {
      className?: string;
 }
 
-
 export function DataGrid( { className }: DataGridProps) {
     const { dataStore : data, setDataStore: setData } = useSharedState();
     const { isOpen, isLoading, options, openDialog, closeDialog, handleConfirm} = useConfirmDialog();
@@ -38,7 +38,11 @@ export function DataGrid( { className }: DataGridProps) {
             cancelText: 'Cancel',
             type: 'danger',
             onConfirm: async () => {
-                setData(prevData => prevData.filter(row => row.id !== id));
+                setData(prevData => {
+                    const newData = prevData.filter(row => row.id !== id)
+                    sessionStorage.setItem('dataStore', JSON.stringify(newData));
+                    return newData;
+                });
             },
         });
     }   
@@ -50,8 +54,11 @@ export function DataGrid( { className }: DataGridProps) {
             if (index > 0) {
                 const newData = [...prevData];      
                 [newData[index - 1], newData[index]] = [newData[index], newData[index - 1]];
+                sessionStorage.setItem('dataStore', JSON.stringify(newData));
                 return newData;
             }
+
+            sessionStorage.setItem('dataStore', JSON.stringify(prevData));
             return prevData;
         });
     }
@@ -63,8 +70,10 @@ export function DataGrid( { className }: DataGridProps) {
             if (index < prevData.length - 1) {
                 const newData = [...prevData];
                 [newData[index + 1], newData[index]] = [newData[index], newData[index + 1]];
+                sessionStorage.setItem('dataStore', JSON.stringify(newData));
                 return newData;
             }   
+            sessionStorage.setItem('dataStore', JSON.stringify(prevData));
             return prevData;
         });
     }
@@ -100,9 +109,7 @@ export function DataGrid( { className }: DataGridProps) {
                         onClick={(e) => { deleteRow(e, row.id); }}
                         className="p-2 bg-red-600 hover:bg-red-900 rounded text-white transition duration-200"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 10-2 0v6a1 1 0 102 0V7z" clipRule="evenodd" />
-                        </svg>
+                       <Delete />
                     </button>
                     
                     <button
@@ -110,9 +117,7 @@ export function DataGrid( { className }: DataGridProps) {
                         onClick={(e) => { moveUp(e, row.id); }}
                         className="p-2 ml-3 bg-blue-600 hover:bg-blue-900 rounded text-white transition duration-200"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                        </svg>
+                        <Up />
                     </button>
 
                     <button
@@ -120,9 +125,7 @@ export function DataGrid( { className }: DataGridProps) {
                         onClick={(e) => { moveDown(e, row.id); }}
                         className="p-2 ml-1 bg-green-600 hover:bg-green-900 rounded text-white transition duration-200"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 011.414-1.414L9 14.586V3a1 1 0 112 0v11.586l4.293-4.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
+                        <Down />
                     </button>
                 </div>
             ),  
