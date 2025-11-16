@@ -1,3 +1,5 @@
+import { Default_Database } from "../Configurations/Default_Database.js";
+
 export default class Models {
 
     constructor(db, tableName) {
@@ -6,7 +8,7 @@ export default class Models {
     }   
     
     async findAll( options = {} ) {
-        const { limit, offset, orderBy = 'id', order = 'asc' } = options;   
+        const { limit = Default_Database.limitRecords, offset, orderBy = 'id', order = 'asc' } = options;   
         const query = this.db(this.tableName).select('id', 'name');
         if (limit) {
             query.limit(limit);
