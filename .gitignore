@@ -63,3 +63,42 @@ test-output/
 # Ignore pm2 logs if used
 pids/
 logs/
+
+# C# / .NET Core / Visual Studio
+
+# Build outputs
+/bin/
+/obj/
+/out/
+/publish/
+/artifacts/
+
+# Visual Studio workspace & temp files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# NuGet packages and caches
+packages/
+*.nupkg
+.nuget/packages/
+
+# Rider / ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+# Test results
+TestResults/
+*.trx
+
+# Local DB files
+*.mdf
+*.ldf
+
+# Misc .NET artifacts
+project.lock.json
+project.fragment.lock.json
+project.assets.json
+ScaffoldingReadMe.txt
