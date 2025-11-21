@@ -67,11 +67,11 @@ logs/
 # C# / .NET Core / Visual Studio
 
 # Build outputs
-/bin/
-/obj/
-/out/
-/publish/
-/artifacts/
+*/bin/
+*/obj/
+*/out/
+*/publish/
+*/artifacts/
 
 # Visual Studio workspace & temp files
 .vs/

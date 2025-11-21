@@ -1,0 +1,30 @@
+{
+  "info": {
+    "_postman_id": "05c431a2-70ca-4362-b399-03c5e8068770",
+    "name": "New Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{applicationUrl}}/weatherforecast",
+          "host": [
+            "{{applicationUrl}}"
+          ],
+          "path": [
+            "weatherforecast"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "applicationUrl",
+      "value": ""
+    }
+  ]
+}
