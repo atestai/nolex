@@ -24,6 +24,7 @@
               }
             }
           ],
+          "id": "41f536bf-348e-4d4a-95b3-e4be29faa1f1",
           "request": {
             "method": "GET",
             "url": {
@@ -40,6 +41,7 @@
           },
           "response": [
             {
+              "id": "0110d50e-a59b-4da8-8593-9defba6a0218",
               "name": "clinics",
               "originalRequest": {
                 "method": "GET",
@@ -106,6 +108,7 @@
               "body": "{\n    \"clinics\": [\n        {\n            \"id\": 1,\n            \"name\": \"Clinica Catania\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Clinica Messina\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Clinica Palermo\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"Clinica Agrigento\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Clinica Enna\"\n        }\n    ]\n}"
             },
             {
+              "id": "0c2d5e3f-1c9c-4e46-9c00-70abd0c28b56",
               "name": "clinics",
               "originalRequest": {
                 "method": "GET",
@@ -187,6 +190,7 @@
               }
             }
           ],
+          "id": "5414e854-bd8e-4b5d-b51c-997fb9dfbd67",
           "request": {
             "method": "GET",
             "url": {
@@ -224,6 +228,7 @@
               }
             }
           ],
+          "id": "0e65ac10-17d0-4397-8f38-3e63aa390310",
           "request": {
             "method": "GET",
             "url": {
@@ -248,6 +253,7 @@
           },
           "response": [
             {
+              "id": "e5f107a6-c026-4b16-bd08-2ec6f8656046",
               "name": "getBodyPartsByClinic",
               "originalRequest": {
                 "method": "GET",
@@ -324,6 +330,7 @@
               "body": "{\n    \"bodyParts\": [\n        {\n            \"id\": 6,\n            \"name\": \"Arti Superiori\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Collo\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Pelvi\"\n        },\n        {\n            \"id\": 1,\n            \"name\": \"Testa\"\n        }\n    ]\n}"
             },
             {
+              "id": "b2865424-e986-48c6-8836-e30484a88b87",
               "name": "getBodyPartsByClinic",
               "originalRequest": {
                 "method": "GET",
@@ -389,7 +396,8 @@
             }
           ]
         }
-      ]
+      ],
+      "id": "cd2f71a4-2d46-49bd-980a-a079030f6187"
     },
     {
       "name": "Exams",
@@ -409,6 +417,7 @@
               }
             }
           ],
+          "id": "27a8d01b-dcbc-4d33-8fd5-cc4d96276cad",
           "request": {
             "method": "GET",
             "url": {
@@ -448,6 +457,7 @@
               }
             }
           ],
+          "id": "820c898a-3942-4f6d-acc7-205757888c5c",
           "request": {
             "method": "GET",
             "url": {
@@ -472,6 +482,7 @@
         },
         {
           "name": "examsByBodyPartAndClinic",
+          "id": "98914893-53f8-4d01-aba5-ec3b1ea796f0",
           "request": {
             "method": "GET",
             "url": {
@@ -499,6 +510,7 @@
           },
           "response": [
             {
+              "id": "e846cbc5-d21e-406b-a6a8-12ec0834cb17",
               "name": "examsByBodyPartAndClinic",
               "originalRequest": {
                 "method": "GET",
@@ -576,6 +588,7 @@
               "body": "{\n    \"exams\": [\n        {\n            \"id\": 7,\n            \"name\": \"TAC Magnetica Pelvi\",\n            \"min_cod\": \"EXAM007\",\n            \"internal_code\": \"INT007\"\n        }\n    ]\n}"
             },
             {
+              "id": "eb357b9a-876e-43e2-8c2c-18f138af1fc6",
               "name": "examsByBodyPartAndClinic",
               "originalRequest": {
                 "method": "GET",
@@ -645,7 +658,8 @@
             }
           ]
         }
-      ]
+      ],
+      "id": "09545b92-e789-47a7-9805-1d55d7cdea47"
     },
     {
       "name": "Body parts",
@@ -665,6 +679,7 @@
               }
             }
           ],
+          "id": "41cb142a-5130-40e6-8ed8-2792c68ce48a",
           "request": {
             "method": "GET",
             "url": {
@@ -704,6 +719,7 @@
               }
             }
           ],
+          "id": "457f6221-a8db-4f2e-a6d3-7cd3094a67e3",
           "request": {
             "method": "GET",
             "url": {
@@ -728,6 +744,7 @@
         },
         {
           "name": "getBodyPartsByClinic",
+          "id": "7243269f-66fe-4480-a1ae-06f2ae244801",
           "request": {
             "method": "GET",
             "url": {
@@ -749,7 +766,8 @@
             }
           }
         }
-      ]
+      ],
+      "id": "fbb1e05a-1545-4236-a609-3baaa2e8c5e0"
     },
     {
       "name": "info",
@@ -766,6 +784,7 @@
           }
         }
       ],
+      "id": "8b8c814b-effc-4663-8cd0-ef1cb5e8e8b0",
       "request": {
         "method": "GET",
         "url": {
@@ -804,6 +823,7 @@
           }
         }
       ],
+      "id": "0d599d02-ec37-4d1c-b835-fe8154eb5f80",
       "request": {
         "method": "GET",
         "url": {
@@ -822,6 +842,7 @@
   ],
   "variable": [
     {
+      "id": "4208c523-fbf3-47fb-9c91-698d778f7640",
       "key": "base_url",
       "value": ""
     }

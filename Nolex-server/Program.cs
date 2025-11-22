@@ -1,41 +1,47 @@
+
+using Nolex_server;
+using System.Data;
+using Microsoft.Data.Sqlite;
+using Nolex_server.ServiceProvider;
+using Nolex_server.ConfigurationSection;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddScoped<IDbConnection>(sp =>
+{
+    var connStr = builder.Configuration.GetConnectionString("DefaultConnection") ?? $"Data Source={Default_Database.DbPath};";   
+    var c = new SqliteConnection(connStr);
+    c.Open(); 
+    return c;
+});
+
+
 builder.Services.AddOpenApi();
 
-var app = builder.Build();
+var repositoryTypes = typeof(Program).Assembly.GetTypes()
+    .Where(t => t.Name.EndsWith("Repository") && !t.IsAbstract && !t.IsInterface);
 
-// Configure the HTTP request pipeline.
+foreach (var type in repositoryTypes)
+{
+    builder.Services.AddScoped(type);
+}
+
+
+var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await ConfigInizializer.InitializeAsync(services);
+    await DbInitializer.InitializeAsync(services);
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
+app.MapInfoEndPoint();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+await app.RunAsync();
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
-
-app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

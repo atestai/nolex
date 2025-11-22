@@ -66,6 +66,10 @@ logs/
 
 # C# / .NET Core / Visual Studio
 
+*/appsettings.Development.json
+*/appsettings.Local.json
+
+
 # Build outputs
 */bin/
 */obj/
@@ -102,3 +106,20 @@ project.lock.json
 project.fragment.lock.json
 project.assets.json
 ScaffoldingReadMe.txt
+
+# ASP.NET Core
+wwwroot/lib/node_modules/
+wwwroot/lib/bower_components/
+wwwroot/lib/npm_modules/
+wwwroot/dist/
+wwwroot/build/
+wwwroot/temp/
+wwwroot/tmp/
+wwwroot/uploads/
+wwwroot/.sass-cache/
+wwwroot/.cache/
+wwwroot/.parcel-cache/
+wwwroot/.next/
+wwwroot/.nuxt/
+wwwroot/out/
+
