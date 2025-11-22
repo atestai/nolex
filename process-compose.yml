@@ -1,6 +1,11 @@
 vars:
 processes:
-    
+
+  nolex-server:
+    command: dotnet run --urls=http://localhost:5000
+    working_dir: "./Nolex-server"
+    ready_log_line: "Now listening on: http://localhost:5000"
+   
   nolex-core:
     command: npm install && npm run start
     ready_log_line: "###NOLEX READY###"
